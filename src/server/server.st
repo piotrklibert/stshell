@@ -1,5 +1,7 @@
-(Directory image / 'src/server/commands.st') fileIn.
-(Directory image / 'src/server/player.st') fileIn.
+PackageLoader fileInPackage: 'Sockets'.
+
+(Directory code / 'server/commands.st') fileIn.
+(Directory code / 'server/player.st') fileIn.
 
 
 Object subclass: Server [

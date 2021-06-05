@@ -3,15 +3,13 @@
 " PackageLoader loadPackageFromFile: 'vendor/petitparser/package.xml'. "
 
 " File imports "
-(Directory image / 'vendor/petitparser/Extension.st') fileIn.
-(Directory image / 'vendor/petitparser/PetitParser.st') fileIn.
+(Directory vendor / 'petitparser/Extension.st') fileIn.
+(Directory vendor / 'petitparser/PetitParser.st') fileIn.
 
-(Directory image / 'src/utils.st') fileIn.
-
-(Directory image / 'src/server/output.st') fileIn.
-(Directory image / 'src/server/server.st') fileIn.
-
-(Directory image / 'src/world/description.st') fileIn.
+(Directory code / 'utils.st') fileIn.
+(Directory code / 'server/output.st') fileIn.
+(Directory code / 'server/server.st') fileIn.
+(Directory code / 'world/description.st') fileIn.
 
 
 " STParsingDriver subclass: AAA [ "

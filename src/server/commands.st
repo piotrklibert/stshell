@@ -1,3 +1,4 @@
+
 Object subclass: CommandDispatcher [
     | commands |
 
@@ -121,7 +122,6 @@ CommandHandler extend [
             ^nil.
         ].
         ^res.
-
     ]
 
     q [
@@ -132,6 +132,7 @@ CommandHandler extend [
         | out |
         out := WriteStream on: ''.
         out
+            nl;
             nextPutAll: ('Error: ' inColor: #red);
             nextPutAll: (err asString inColor: #yellow);
             nextPutAll: ' - ';
@@ -142,12 +143,22 @@ CommandHandler extend [
             out nl.
         ].
         err signalingContext backtraceOn: out.
+        StackTraceFormatter display: err.
         out contents displayNl.
     ]
 
-    handleCommand: cmd withOutputTo: transcript [
+    handleCommand: cmd withOutputTo: aTextCollector [
+        ^[
+            self primHandleCommand: cmd withOutputTo: aTextCollector
+        ]
+        on: Exception do: [ :err |
+            err inspect.
+            ^nil.
+        ].
+    ]
+    primHandleCommand: cmd withOutputTo: aTextCollector [
         line := cmd.
-        LocalTranscript use: transcript during: [
+        LocalTranscript use: aTextCollector during: [
             (DebugMode or: [line first = Character backquote]) ifTrue: [
                 self handleEval printString displayNl.
                 ^self.
