@@ -3,7 +3,7 @@ Object subclass: PlayerConnection [
 
     PlayerConnection class [
         socket: socket server: server [
-            ^(self new)
+            ^(self basicNew)
                 socket: socket;
                 server: server;
                 initialize;
@@ -15,13 +15,19 @@ PlayerConnection classInit: [ :cls |
     cls createAllAccessors.
 ].
 PlayerConnection extend [
+    id [
+        ^self hash asString.
+    ]
+
     initialize [
+        Logger log1: 'player init'.
         commandHandler := CommandHandler on: self.
         transcript := (TextCollector message: socket->#nextPutAllFlush:).
+
     ]
 
     showPrompt [
-        socket nextPutAllFlush: ('[%1]> ' bindWith: Util procId).
+        socket nextPutAllFlush: ('[%1]> ' bindWith: Logger procId).
     ]
 
     run [
@@ -30,7 +36,7 @@ PlayerConnection extend [
 
     handleInteraction [
         socket isPeerAlive ifFalse: [
-            Util log: 'player: socket closed'.
+            Logger log1: 'player: socket closed'.
             ^self stopMyself
         ].
         self showPrompt.
@@ -46,7 +52,7 @@ PlayerConnection extend [
     ]
 
     stop [
-        Util log: 'stopping player process'.
+        Logger log1: 'stopping player process'.
         process ifNotNil: [
             process terminate.
             process := nil.
@@ -56,11 +62,11 @@ PlayerConnection extend [
             socket := nil.
         ].
         server removePlayerConnection: self.
-        Util log: 'player process stopped'.
+        Logger log2: 'player process stopped'.
     ]
 
     start [
-        Util log: 'starting player'.
+        Logger log1: 'starting player'.
         process := [self run] newProcess.
         process
             priority: Processor lowIOPriority;

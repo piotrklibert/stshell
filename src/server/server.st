@@ -1,6 +1,6 @@
 PackageLoader fileInPackage: 'Sockets'.
 
-(Directory code / 'server/commands.st') fileIn.
+(Directory code / 'server/commands/commands.st') fileIn.
 (Directory code / 'server/player.st') fileIn.
 
 
@@ -22,18 +22,18 @@ Server extend [
     ]
 
     start [
-        Util log: 'starting server process'.
+        Logger log2: 'starting server process'.
         socket := Sockets.ServerSocket port: port.
         process := [self run] newProcess.
         process
-		    priority: Processor lowIOPriority;
-		    name: (self class name , ' Process').
+            priority: Processor lowIOPriority;
+            name: (self class name , ' Process').
         process resume.
     ]
 
     stop [
         [
-            Util log: 'stopping playerConnections'.
+            Logger log2: 'stopping playerConnections'.
             playerConnections do: #stop.
             process terminate.
             process := nil.
@@ -44,24 +44,25 @@ Server extend [
     ]
 
     run [
-        Util log: 'entering main loop'.
+        Logger log2: 'entering main loop'.
         [
-            Util log: 'waiting for connection'.
+            Logger log1: 'waiting for connection'.
             socket waitForConnection.
             socket isPeerAlive ifFalse: [ ^self stop ].
-            Util log: 'accepting connection'.
             self acceptConnection.
         ]
         repeat.
     ]
 
     acceptConnection [
+        Logger log1: 'accepting connection'.
         self addConnection:
             (PlayerConnection socket: socket accept
                               server: self).
     ]
 
     addConnection: playerConnection [
+        Logger log1: 'Server playerConnection starting'.
         playerConnections add: playerConnection start.
     ]
 

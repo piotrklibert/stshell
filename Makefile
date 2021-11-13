@@ -1,5 +1,5 @@
 PKGS_BASE := Sockets Sport Iconv Announcements
-PKGS_DEBUG := Parser Compiler  ObjectDumper ProfileTools STTools
+PKGS_DEBUG := ObjectDumper ProfileTools STTools
 
 
 .PHONY: images
@@ -26,7 +26,7 @@ debug.im:
 
 run:
 	gst \
-		--image ./base.im \
+		--rebuild-image \
 		--no-gc-message \
 		./src/start.st \
 		-a RELEASE
@@ -42,7 +42,7 @@ run-debug:
 
 
 local:
-	gst -Vc -I ./debug.im
+	gst -gc -I ./debug.im
 
 
 connect:

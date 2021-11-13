@@ -1,6 +1,8 @@
 DynamicVariable subclass: LocalTranscript [
-    LocalTranscript class >> value [
-        ^super valueIfAbsent: [ StdOutTranscript ].
+    LocalTranscript class [
+        value [
+            ^super valueIfAbsent: [ StdOutTranscript ].
+        ]
     ]
 ]
 

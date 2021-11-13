@@ -1,98 +1,42 @@
-" PackageLoader fileInPackages: #( "
-"     'Parser' "
-"     'Compiler' "
-"     'ClassPublisher' "
-    " 'Debugger' "
-    " 'ObjectDumper' "
-    " 'ProfileTools' "
-"     'Sockets' "
-"     'Announcements' "
-"     'Iconv' "
-"     'STTools' "
-"     'Sport' "
-" ). "
-" DynamicVariable subclass: LocalTranscript [ "
-"     LocalTranscript class [ "
-"         value [ "
-"             ^super valueIfAbsent: [ StdOutTranscript ]. "
-"         ] "
-"     ] "
-" ] "
-
-" Object subclass: DynamicTranscript [ "
-"      DynamicTranscript class [  "
-"         doesNotUnderstand: aMessage [ "
-"             StdOutTranscript showCr: aMessage asString. "
-"             aMessage sendTo: LocalTranscript value. "
-"         ] "
-"      ]  "
-" ] "
-
-" Smalltalk at: #StdOutTranscript put: (Smalltalk at: #Transcript). "
-" Smalltalk at: #Transcript put: DynamicTranscript new. "
-
-
-" String subclass: AAA [ "
-"     ~= a [] "
-" ] "
-" Object subclass: MethodMatcher [ "
-"     | e | "
-
-" ] "
-" Object subclass: SelectorMatcher [ "
-"     | pattern | "
-"     SelectorMatcher class >> forPattern: pattern [ "
-"         ^(self new) pattern: pattern. "
-"     ] "
-"     match: selector [ "
-"         ^pattern in: selector. "
-"     ] "
-"     ifMatch: selector do: aBlock [ "
-"         ^(self match: selector) ifTrue: aBlock value. "
-"     ] "
-" ] "
-" SelectorMatcher createAccessors: 'pattern'. "
-
-" Object subclass: MethodMatcher [ "
-"     | selectorMatcher | "
-" ] "
-" MethodMatcher "
-"     createAccessors: 'selectorMatcher'. "
-" MethodMatcher extend [ "
-"     MethodMatcher class >> with: pattern [ "
-"         ^self new selectorMatcher: SelectorMatcher forPattern: pattern. "
-"     ] "
-
-"     matchingMethodsOf: cls [ "
-"         cls hasMethods ifFalse: [ ^Array new ]. "
-"         ^cls selectors select: [:sel | selectorMatcher match: sel ]. "
-"     ] "
-" ] "
-
-" Eval [ "
-" Namespace current: Kernel [ "
-"     PackageInfo printNl. "
-" ] "
-" String extend [ "
-"     a [] "
-" ] "
-
-Object subclass: B [
-    "| |"
-    "B class []"
-]
-B classInit: [ :cls |
-    "cls createAllAccessors."
-].
-B extend [
-    methodA [
-        | a b c |
-        self methodB
+Object subclass: S [
+    | styles |
+    initialize [
+        styles := #('default' 'emacs' 'friendly' 'colorful' 'autumn' 'murphy' 'manni' 'monokai' 'perldoc' 'pastie' 'borland' 'trac' 'native' 'fruity' 'bw' 'vim' 'vs' 'tango' 'rrt' 'xcode' 'igor' 'paraiso-light' 'paraiso-dark' 'lovelace' 'algol' 'algol_nu' 'arduino' 'rainbow_dash' 'abap' 'solarized-dark' 'solarized-light' 'sas' 'stata' 'stata-light' 'stata-dark' 'inkpot').
+        styles := #('monokai' 'trac' 'native' 'fruity' 'inkpot' 'rrt').
     ]
-    methodB [
-        " I c: thisContext sender class. "
-        (thisContext allInstVarNames)  printNl
+
+    print: src in: style [
+        | fd cmd str |
+        cmd := 'pygmentize -O style=' , style , ' -l smalltalk'.
+        fd := FileDescriptor popen: cmd dir: 'w+'.
+        fd nextPutAll: src.
+        fd flush.
+        fd shutdown.
+        (style styledAs: [ :s | s u red ]) display.
+        str := fd contents asStyledString.
+        ('  %1 / %2 ' % { str size. str visibleSize }) displayNl.
+        str displayNl.
+    ]
+
+    printInStyles: src [
+        styles do: [ :s | self print: src in: s. ].
     ]
 ]
 
-B new methodA.
+
+""
+
+Eval [
+    | src |
+    src := 'c: cls [
+            " Show class methods, comment, and variables if cls is a class,
+              or display a list of classes with names matching a pattern if
+              it''s a string."
+            cls ifNil: [ ^self gotNilError ].
+            (cls isKindOf: Behavior)
+                ifTrue: [ ^self showClassDetails: cls ].
+            (cls isKindOf: String)
+                ifTrue: [ ^self showClassesMatching: cls ].
+        ]'.
+    (SourceCodeHighlighter on: src) formattedString displayNl.
+]

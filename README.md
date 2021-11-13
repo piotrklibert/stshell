@@ -1,5 +1,13 @@
 ### Notes
 
+take/drop etc dla streamow
+
+Emacs: pokazywac inst var names klasy at point
+
+doesNotUnderstand albo at override na namespace subclass, potem ustawic jako
+environment! haha!
+
+
 inotify wait i reload !
 
 ```
@@ -9,7 +17,10 @@ inotify wait i reload !
 
     Object printHierarchy
 
+```
 
+- FileStream class>>#popen:dir: accepts `'w+'` for read-write communication
+```
 [19189]> p := (FileStream popen: '/bin/cat' dir: 'w+')
 <Pipe on /bin/cat>
 [19189]> p nextPutAll: ('asdasdasd',String nl)
@@ -35,17 +46,9 @@ false
 - browse senders - RBBracketedParser on methodSourceString
 ~/portless/versions/smalltalk/gnu-smalltalk-git/packages/stinst/parser/RBParser.st
 
-- track variables in evals - create a class and object for each player
-~/portless/versions/smalltalk/gnu-smalltalk-git/packages/visualgst/WorkspaceVariableTracker.st
-
-- FileStream class>>#popen:dir: accepts `'w+'` for read-write communication
-
 - allSelectors - better display, filtering, source code
 
-- inspector help
-
-- DirPackage investigation
-    - http://www.educery.com/papers/modules/
+- http://www.educery.com/papers/modules/
 
 - deep into pharo - exceptions and blocks
 
@@ -53,13 +56,23 @@ false
 
 - smalltalk/x - has --repl !
 
-- diff after loading / after parsing - check if there's a need to remove methods
-
-- remove wildcard accessor generation
-
-- string - visible width / without invisible escape sequences /
-String subclass: ColorizedString
+- remove wildcard accessor generation (where not needed)
 
 - improve fileIn - parsing
 
-    - make #subclass: msg sends clear the methods in the subclass
+
+### DONE
+
+- string - visible width / without invisible escape sequences /
+    String subclass: ColorizedString
+
+- make #subclass: msg sends clear the methods in the subclass
+
+- diff after loading / after parsing - check if there's a need to remove methods
+
+- inspector help
+
+- track variables in evals - create a class and object for each player
+~/portless/versions/smalltalk/gnu-smalltalk-git/packages/visualgst/WorkspaceVariableTracker.st
+
+- DirPackage investigation
