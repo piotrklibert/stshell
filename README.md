@@ -13,6 +13,11 @@ In the screenshots below:
 <img src="./img/screenshot_2021-11-13_1912.png" />
 <img src="./img/screenshot_2021-11-13_1913.png" />
 
+It's also possible to display doctring for methods without printing the source
+code:
+
+<img src="./img/screenshot_2021-11-13_2345.png" />
+
 
 ### Notes
 
