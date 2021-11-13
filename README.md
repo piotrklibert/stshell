@@ -4,7 +4,7 @@ In the screenshots below:
 
 - `[107402]>` is a REPL prompt showing connection ID
 - `I` is an alias for an instance of `MyInspector` class
-- `s: aString` on its own means "search" or "show" (selectors that match the string)
+- `s: aString` on its own means "search for" or "show" (selectors that match the string)
 - `c: aClass` on its own means "show class"
 - The two above together (`s:c:`) together means "show methods of a class that match the string"
 
