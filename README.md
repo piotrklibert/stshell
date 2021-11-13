@@ -1,14 +1,18 @@
+## Nicer REPL for GNU Smalltalk
+
+<img src="./img/screenshot_2021-11-13_1907.png" />
+<img src="./img/screenshot_2021-11-13_1912.png" />
+<img src="./img/screenshot_2021-11-13_1913.png" />
+
 ### Notes
 
-take/drop etc dla streamow
-
-Emacs: pokazywac inst var names klasy at point
-
-doesNotUnderstand albo at override na namespace subclass, potem ustawic jako
-environment! haha!
+<!-- take/drop etc dla streamow -->
+<!-- Emacs: pokazywac inst var names klasy at point -->
+<!-- doesNotUnderstand albo at override na namespace subclass, potem ustawic jako -->
+<!-- environment! haha! -->
 
 
-inotify wait i reload !
+inotifywait & reload !
 
 ```
     Behavior>>#evaluate:to:
@@ -16,10 +20,10 @@ inotify wait i reload !
     Behavior>>#createSetMethod:
 
     Object printHierarchy
-
 ```
 
 - FileStream class>>#popen:dir: accepts `'w+'` for read-write communication
+
 ```
 [19189]> p := (FileStream popen: '/bin/cat' dir: 'w+')
 <Pipe on /bin/cat>
