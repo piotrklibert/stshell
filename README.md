@@ -1,8 +1,18 @@
 ## Nicer REPL for GNU Smalltalk
 
+In the screenshots below:
+
+- `[107402]>` is a REPL prompt showing connection ID
+- `I` is an alias for an instance of `MyInspector` class
+- `s: aString` on its own means "search" or "show" (selectors that match the string)
+- `c: aClass` on its own means "show class"
+- The two above together (`s:c:`) together means "show methods of a class that match the string"
+
+
 <img src="./img/screenshot_2021-11-13_1907.png" />
 <img src="./img/screenshot_2021-11-13_1912.png" />
 <img src="./img/screenshot_2021-11-13_1913.png" />
+
 
 ### Notes
 
@@ -10,17 +20,13 @@
 <!-- Emacs: pokazywac inst var names klasy at point -->
 <!-- doesNotUnderstand albo at override na namespace subclass, potem ustawic jako -->
 <!-- environment! haha! -->
-
-
-inotifywait & reload !
-
-```
-    Behavior>>#evaluate:to:
-    Behavior>>#createGetMethod:
-    Behavior>>#createSetMethod:
-
-    Object printHierarchy
-```
+<!-- inotifywait & reload ! -->
+<!-- ``` -->
+<!--     Behavior>>#evaluate:to: -->
+<!--     Behavior>>#createGetMethod: -->
+<!--     Behavior>>#createSetMethod: -->
+<!--     Object printHierarchy -->
+<!-- ``` -->
 
 - FileStream class>>#popen:dir: accepts `'w+'` for read-write communication
 
