@@ -6,7 +6,7 @@ In the screenshots below:
 - `I` is an alias for an instance of `MyInspector` class
 - `s: aString` on its own means "search for" or "show" (selectors that match the string)
 - `c: aClass` on its own means "show class"
-- The two above together (`s:c:`) together means "show methods of a class that match the string"
+- The two above (`s:` and `c:`) together mean "show methods of a class that match the string"
 
 
 <img src="./img/screenshot_2021-11-13_1907.png" />
