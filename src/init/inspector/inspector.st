@@ -43,7 +43,7 @@ DeepMatchPrinter extend [
 
 
 
-
+" TODO: show all overrides in hier matching sel"
 " TODO: cleanup, long versions for aliases, help "
 Object subclass: MyInspector [
     | config |
